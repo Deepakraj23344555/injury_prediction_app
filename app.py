@@ -65,3 +65,14 @@ if st.session_state.logged_in:
             st.success("✅ Low Risk. Keep training smart!")
 else:
     st.info("Login or Register to access the app.")
+import os
+
+def load_model():
+    if not os.path.exists("model.pkl"):
+        st.error("❌ model.pkl not found!")
+        st.stop()
+    if os.path.getsize("model.pkl") == 0:
+        st.error("❌ model.pkl is empty or corrupted!")
+        st.stop()
+    with open("model.pkl", "rb") as f:
+        return pickle.load(f)
